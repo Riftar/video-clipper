@@ -39,11 +39,11 @@ function installCsp() {
         'Content-Security-Policy': [
           "default-src 'self' 'unsafe-inline' data: blob:; " +
           "script-src 'self' 'unsafe-inline'; " +
-          "style-src 'self' 'unsafe-inline' data:; " +
+          "style-src 'self' 'unsafe-inline' data: https://fonts.googleapis.com; " +
           "img-src 'self' data: blob: https:; " +
           "media-src 'self' blob: file:; " +
           "connect-src 'self' https:; " +
-          "font-src 'self' data:",
+          "font-src 'self' data: https://fonts.gstatic.com;",
         ],
       },
     });
