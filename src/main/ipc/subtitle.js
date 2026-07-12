@@ -71,7 +71,7 @@ function register() {
   });
 
   // ── Export (burn subtitles) ──────────────────────────────────────
-  ipcMain.handle('export-video', async (event, { clipPath, style }) => {
+  ipcMain.handle('export-video', async (event, { clipPath, style, overwrite }) => {
     const win = BrowserWindow.fromWebContents(event.sender);
     const send = (p) => { if (win && !win.isDestroyed()) win.webContents.send('export-progress', p); };
 
@@ -82,7 +82,18 @@ function register() {
       }
 
       const baseName = safeName(path.basename(clipPath, path.extname(clipPath)));
-      const outputPath = path.join(settings.paths.export, `${baseName}_sub.mp4`);
+      let outputPath;
+      if (overwrite) {
+        outputPath = path.join(settings.paths.export, baseName + '_sub.mp4');
+      } else {
+        let i = 1;
+        do {
+          const suffix = i === 1 ? '_sub' : '_sub_' + i;
+          outputPath = path.join(settings.paths.export, baseName + suffix + '.mp4');
+          i++;
+        } while (fs.existsSync(outputPath));
+      }
+      const outputName = path.basename(outputPath);
 
       // Apply casing if requested
       const appliedStyle = subtitles.buildForceStyle(style || defaultStyle());
@@ -104,7 +115,7 @@ function register() {
       });
 
       send({ stage: 'done', outputPath });
-      return { success: true, outputPath };
+      return { success: true, outputPath, outputName };
     } catch (err) {
       return { success: false, error: err.message };
     }

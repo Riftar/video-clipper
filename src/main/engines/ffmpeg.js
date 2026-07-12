@@ -19,8 +19,8 @@ function probe(filePath) {
     child.stderr.on('data', (b) => { err += b.toString(); });
     child.on('error', reject);
     child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(err || `ffprobe exited ${code}`));
-      try { resolve(JSON.parse(out)); } catch { reject(new Error('ffprobe: invalid JSON')); }
+      if (code !== 0) return reject(new Error(err || `Probe failed (code ${code})`));
+      try { resolve(JSON.parse(out)); } catch { reject(new Error('Probe returned invalid data.')); }
     });
   });
 }
@@ -88,7 +88,7 @@ function runFfmpeg(args, { onProgress, totalDuration } = {}) {
     });
     child.on('error', reject);
     child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(err || `ffmpeg exited ${code}`));
+      if (code !== 0) return reject(new Error(err || `Processing failed (code ${code})`));
       resolve();
     });
   });

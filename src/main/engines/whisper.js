@@ -28,8 +28,8 @@ function extractAudio(inputPath) {
     child.stderr.on('data', (b) => { err += b.toString(); });
     child.on('error', reject);
     child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(`ffmpeg audio extraction failed: ${err}`));
-      if (!fs.existsSync(wavPath)) return reject(new Error('ffmpeg produced no wav output'));
+      if (code !== 0) return reject(new Error(`Audio extraction failed: ${err}`));
+      if (!fs.existsSync(wavPath)) return reject(new Error('Audio extraction produced no output.'));
       resolve(wavPath);
     });
   });
@@ -51,10 +51,10 @@ function extractAudio(inputPath) {
 async function transcribe({ inputPath, language = 'id', model, onProgress }) {
   const modelPath = model || settings.binaries.whisperModel;
   if (!fs.existsSync(modelPath)) {
-    throw new Error(`Whisper model not found: ${modelPath}. Place a model in bin/whisper/.`);
+    throw new Error('Transcription model not found. Place a model file in the engine folder.');
   }
   if (!fs.existsSync(settings.binaries.whisper)) {
-    throw new Error(`whisper-cli not found: ${settings.binaries.whisper}`);
+    throw new Error('Transcription engine not found. Check your installation.');
   }
 
   // Step 1: ensure whisper can read the input. If it's already wav, skip.
@@ -104,11 +104,11 @@ function runWhisper({ wavPath, modelPath, language, onProgress }) {
     child.on('close', (code) => {
       // whisper-cli can exit 0 even on failure, so check for the error marker too
       if (code !== 0 || sawError) {
-        return reject(new Error(stderr || `whisper-cli exited ${code}`));
+        return reject(new Error(stderr || `Transcription failed (code ${code})`));
       }
       const srtPath = `${outPattern}.srt`;
       if (!fs.existsSync(srtPath)) {
-        return reject(new Error('whisper-cli produced no SRT output. Check the audio file is valid.'));
+        return reject(new Error('Transcription produced no output. Check the audio is valid.'));
       }
       const text = fs.readFileSync(srtPath, 'utf8');
       resolve({ srtPath, text });

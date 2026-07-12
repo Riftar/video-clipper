@@ -8,7 +8,7 @@ Download → cut → transcribe → style subtitles → export. Built with Elect
 
 | Downloader | Studio | Export |
 |---|---|---|
-| Paste a URL, pick quality, download with live progress | Cut clips, queue batch jobs, aspect-ratio transforms | AI transcribe, style subs, burn into video |
+| Paste a URL, pick quality, download with live progress | Cut clips with waveform visualization, skip controls, batch jobs | AI transcribe, live subtitle preview, style controls, burn into video |
 
 ## Prerequisites
 
@@ -65,9 +65,13 @@ npm start
 The app opens to the **Downloader**. Workflow:
 
 1. **Downloader** — paste a video URL (YouTube/IG/TikTok/FB), Analyze, pick quality, Download.
-2. **Studio** — select a downloaded video, set start time + duration + aspect ratio, Add to queue, Process Batch.
-3. **Export** — select a clip, AI Transcribe (whisper → SRT), edit transcript if needed, pick subtitle style, Export Video.
+2. **Studio** — select a downloaded video, see the audio waveform, skip forward/back 10s,
+   set start time + duration + aspect ratio, Add to queue, Process Batch.
+3. **Export** — select a clip, AI Transcribe (whisper → SRT), edit transcript, pick subtitle style
+   with live preview, Export Video (with increment or overwrite naming).
 4. **License** — currently a stub (full access). Online Supabase auth is scaffolded but disabled.
+
+The app supports **English and Indonesian** — switch via the language selector in the sidebar.
 
 Output lands in `Documents/Clipper/export/`.
 
@@ -84,6 +88,10 @@ src/
 │   └── auth/              License stub — swap for Supabase here
 ├── preload/index.js       contextBridge → window.api
 └── renderer/              UI (HTML/CSS/JS, no framework)
+    ├── i18n.js            English / Indonesian string dictionary
+    ├── index.html
+    ├── renderer.js
+    └── style.css
 ```
 
 ### Adding Supabase auth later

@@ -13,8 +13,8 @@ function runJson(args) {
     child.stderr.on('data', (b) => { err += b.toString(); });
     child.on('error', reject);
     child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(err || `yt-dlp exited ${code}`));
-      try { resolve(JSON.parse(out)); } catch (e) { reject(new Error('yt-dlp: invalid JSON output')); }
+      if (code !== 0) return reject(new Error(err || `Download failed (code ${code})`));
+      try { resolve(JSON.parse(out)); } catch (e) { reject(new Error('Invalid response from source.')); }
     });
   });
 }
@@ -102,7 +102,7 @@ function downloadVideo({ url, quality = '720', onProgress }) {
 
     child.on('error', reject);
     child.on('close', (code) => {
-      if (code !== 0) return reject(new Error(errBuf || `yt-dlp exited ${code}`));
+      if (code !== 0) return reject(new Error(errBuf || `Download failed (code ${code})`));
       resolve({ filePath: resolvedPath, title: lastTitle });
     });
   });

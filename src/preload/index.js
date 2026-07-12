@@ -56,7 +56,7 @@ const api = {
     saveText: (clipPath, text) => ipcRenderer.invoke('save-subtitle-text', { clipPath, text }),
     getStyle: () => ipcRenderer.invoke('get-subtitle-style-config'),
     saveStyle: (style) => ipcRenderer.invoke('save-subtitle-style-config', { style }),
-    export: (clipPath, style) => ipcRenderer.invoke('export-video', { clipPath, style }),
+    export: (clipPath, style, overwrite) => ipcRenderer.invoke('export-video', { clipPath, style, overwrite }),
     openExportFolder: () => ipcRenderer.invoke('open-export-folder'),
     onTranscriptionProgress: (cb) => {
       const handler = (_e, payload) => cb(payload);
