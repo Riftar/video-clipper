@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' 'unsafe-inline' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: blob: https:; media-src 'self' blob: file:; font-src 'self' data:;" />
+  <title>Clipper</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ────────────────────────── SIDEBAR ────────────────────────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">▶</div>
+      <div class="brand-text">
+        <div class="brand-name">Clipper</div>
+        <div class="brand-sub" id="brand-version">v0.1.0</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-target="page-downloader">
+        <span class="nav-ico">⬇</span> Downloader
+      </button>
+      <button class="nav-item" data-target="page-studio">
+        <span class="nav-ico">✂</span> Studio
+      </button>
+      <button class="nav-item" data-target="page-export">
+        <span class="nav-ico">💬</span> Export
+      </button>
+      <button class="nav-item" data-target="page-license">
+        <span class="nav-ico">🔓</span> License
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="user-badge" id="user-badge">—</div>
+      <div class="workspace-path" id="workspace-path" title="">workspace</div>
+    </div>
+  </aside>
+
+  <!-- ────────────────────────── MAIN ───────────────────────────── -->
+  <main class="main">
+    <header class="topbar">
+      <h1 class="page-title" id="page-title">Downloader</h1>
+    </header>
+
+    <section class="page active" id="page-downloader">
+      <!-- Downloader UI injected by renderer.js -->
+    </section>
+
+    <section class="page" id="page-studio">
+      <!-- Studio / clip UI -->
+    </section>
+
+    <section class="page" id="page-export">
+      <!-- Export + subtitle UI -->
+    </section>
+
+    <section class="page" id="page-license">
+      <!-- License info -->
+    </section>
+  </main>
+
+  <!-- Toast container -->
+  <div id="toast-host"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

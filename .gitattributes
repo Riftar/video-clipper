@@ -1,0 +1,11 @@
+# Normalize line endings: treat all text as LF in the repo, check out as-is
+* text=auto eol=lf
+
+# Binary files — don't touch
+*.woff2 binary
+*.ttf binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.dll binary
+*.exe binary

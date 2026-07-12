@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Bundled binaries (too large for git — see README for setup)
+bin/
+
+# Electron build output
+dist/
+out/
+
+# Logs and runtime
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Workspace (user data, created at runtime — do not ship)
+# (this lives in Documents/Clipper, not in the repo, but guard against accidental copies)
+workspace/
